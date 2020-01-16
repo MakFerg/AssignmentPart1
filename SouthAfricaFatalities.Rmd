@@ -1,18 +1,26 @@
 ---
-title: "R Notebook"
+title: "South Africa Fatalities"
 output: html_notebook
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
 
 ```{r}
-plot(cars)
+library(tidyverse)
+```
+Load the Datframe
+```{r}
+SouthAfrica1990Data = read_csv("SouthAfrica1990.csv")
+```
+Sum the data
+```{r}
+no_of_fatalities <- SouthAfrica1990Data %>% summarise(total_fatalities = sum(best_estimate))
+
+total_n_fatalities <- SouthAfrica1990Data %>% mutate(no_of_fatalities = sum(best_estimate))
+
+fatalities_grouped <- total_n_fatalities %>% group_by(type_of_violence)
+
+Fatalities_by_group <- fatalities_grouped %>% summarise(total_n_fatalities = sum(best_estimate))
+
+ggplot(data = Fatalities_by_group) + geom_col(mapping = aes(x = type_of_violence, y = total_n_fatalities))
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
-
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
-
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
