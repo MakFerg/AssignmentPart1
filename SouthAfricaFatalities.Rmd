@@ -21,6 +21,10 @@ fatalities_grouped <- total_n_fatalities %>% group_by(type_of_violence)
 
 Fatalities_by_group <- fatalities_grouped %>% summarise(total_n_fatalities = sum(best_estimate))
 
-ggplot(data = Fatalities_by_group) + geom_col(mapping = aes(x = type_of_violence, y = total_n_fatalities))
+
+# ggplot(da
+
+ggplot(data = Fatalities_by_group) + geom_col(mapping = aes(x = type_of_violence, y = total_n_fatalities)                              )
+ggsave('myplot.png')
 ```
 
